@@ -108,6 +108,10 @@ Do not make a copy of your key and store it online in an online document store s
 
     $ find ~/.ssh -type f -print | xargs -n1 chmod 600
 
+## Extended Attributes
+
+ $ xattr -d com.apple.quarantine aws-syd.pem
+
 ## Getting the fingerprint of a key
 
     $ ssh-keygen -lf ~/.ssh/id_rsa_nikcub_gmail
@@ -116,7 +120,6 @@ Do not make a copy of your key and store it online in an online document store s
 If you want to aliast this command as `ssh-kp`
 
     $ alias 
-
 
 ## Debugging an ssh server connection
 
@@ -138,13 +141,23 @@ The application is called ssh-agent
 
 It needs to be running 
 
+## Listing keys stored in ssh-agent
+
+    $ ssh-agent -l
+
 ## Configuring the SSH client
 
 Your ssh client will read options each time it runs from a configuration file located in the `.ssh` directory.
 
 Example configuration file
 
-# Extended Attributes
+## Changing the password on a key
 
- $ xattr -d com.apple.quarantine aws-syd.pem
+    $ ssh-keygen -p -f ~/.ssh/id_rsa_nikcub
+
+`f` flag specifies which key file to act on. ~/.ssh/id_rsa is the default key and the default location, so if you are only working with that one single key then there is no need to enter or specify the filename
+
+To change the comment on a key, similarly
+
+    $ ssh-keygen -c -f ~/.ssh/id_rsa_dave
 
